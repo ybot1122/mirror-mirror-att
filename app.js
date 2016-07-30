@@ -115,6 +115,13 @@ app.post('/music', function(req, res, next) {
 
 // app.get('/weather', function(req, res, next);
 
+// test music endpoint
+app.get('/music', function(req, res, next) {
+  io.emit('query', { artist: 'ghostly'});
+});
+
+// app.get('/weather', function(req, res, next))
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
