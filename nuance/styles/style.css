@@ -1,0 +1,111 @@
+ body {
+     font-family:HelveticaNeue-Light,HelveticaNeue,Arial;
+     font-family: 'Fira Sans', 'Helvetica Neue-Light', 'Helvetica Neue', Arial, Helvetica, 'Sans-serif';
+     background:#fff;
+}
+* {
+    border-radius:0px !important;
+}
+.container {
+    padding: 0px;
+    width: 100%;
+}
+.page-header {
+    color: #f8f8f8;
+    background: #21929e;
+    background: -moz-linear-gradient(left, #21929e 0%, #2cc5d5 100%);
+    background: -webkit-linear-gradient(left, #21929e 0%,#2cc5d5 100%);
+    background: linear-gradient(to right, #21929e 0%,#2cc5d5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21929e', endColorstr='#2cc5d5',GradientType=1 );
+    border-bottom: 5px solid #eee;
+    margin-top: 0px;
+}
+.btn.btn-primary {
+    background:#1780a3;
+}
+
+#status-label {
+    font-size: 22px;
+    float: left;
+    font-weight: normal;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+#status-label:before {
+  content: "Disconnected";
+}
+#status-indicator {
+    float: right;
+    border-radius:30px !important;
+    width:30px;
+    height:30px;
+    background:transparent;
+    background:rgb(218,44,54);
+}
+#content.connected #status-indicator {
+    background:rgb(120,184,91);
+}
+#content.connected #status-label:before {
+    content: "Connected";
+}
+
+
+#content.connected #tts {
+    visibility: visible;
+    display: block;
+}
+#content.connected #asr {
+    visibility: visible;
+    display: block;
+}
+#content.connected #nlu {
+    visibility: visible;
+    display: block;
+}
+
+#asr_viz {
+    background:#fff;
+}
+
+
+.panel small {
+    font-family:Arial;
+}
+
+.btn.btn-primary {
+    color: #F2FAEC !important;
+    background: #9ccb77;
+    border:0px;
+    border-bottom: 2px solid #6d8f52;
+}
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open>.dropdown-toggle.btn-primary{
+    background-color:#71A747;
+    border-color:#385C1C
+}
+.btn.btn-warning {
+    color: #F2FAEC !important;
+    background: #F0AD4E;
+    border:0px;
+    border-bottom: 2px solid #AD6D11;
+}
+.btn-warning:hover,.btn-warning:focus,.btn-warning:active,.btn-warning.active,.open>.dropdown-toggle.btn-primary{
+    background-color:#DE9226;
+    border-color:#385C1C
+}
+
+
+.label-default {
+    font-weight: normal;
+    font-size: 0.9em;
+}
+.max-300 {
+    overflow-y:auto;
+    max-height:300px;
+}
+.max-600 {
+    overflow-y:auto;
+    max-height:600px;
+}
+.right-aligned {
+    text-align:right;
+}
