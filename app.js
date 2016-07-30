@@ -14,6 +14,13 @@ var app = express();
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+// CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 /**
  * Create HTTP server and connect socket.io
  */
@@ -89,6 +96,7 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
+
 var routes = require('./routes/index');
 
 // view engine setup
@@ -105,6 +113,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // serve libs from node_modules
 app.use('/scripts', express.static(path.join(__dirname, './node_modules')));
 
+
 app.use('/', routes);
 
 app.post('/music', function(req, res, next) {
@@ -120,7 +129,9 @@ app.get('/music', function(req, res, next) {
   io.emit('query', { artist: 'ghostly'});
 });
 
-// app.get('/weather', function(req, res, next))
+app.post('/weather', function(req, res, next) {
+  io.emit('weather', { weather: 'yay' });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
