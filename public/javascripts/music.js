@@ -21,12 +21,11 @@
     });
 
     // testing
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: '/music'
-    })
-    .then(function(response) {});
-
+    // $.ajax({
+    //   type: 'GET',
+    //   dataType: 'json',
+    //   url: '/music'
+    // })
+    // .then(function(response) {});
   });
 })();
