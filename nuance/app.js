@@ -74,7 +74,7 @@
             viz(vol);
         },
         onresult: function(msg) {
-            console.log(msg);
+            // console.log(msg);
             if (msg.result_type == "NMDP_TTS_CMD") {
                 dLog(JSON.stringify(msg, null, 2), $ttsDebug);
             } else if (msg.result_type == "NVC_ASR_CMD") {
@@ -83,6 +83,23 @@
                 if(msg.result_format == "nlu_interpretation_results") {
                     try{
                         dLog(JSON.stringify(msg.nlu_interpretation_results.payload.interpretations, null, 2), $asrDebug);
+                        var res = msg.nlu_interpretation_results.payload.interpretations;
+                        var intent = msg.nlu_interpretation_results.payload.interpretations[0].action.intent.value;
+
+                        switch(intent) {
+                            case "WEATHER":
+                                console.log("oh hey u requested weather");
+                                break;
+                            case "TodoList":
+                                console.log("wat to do");
+                                break;
+                            case "MUSIC":
+                                console.log("play tunes");
+                                break;
+                            default:
+                                throw "invalid intent";
+                        }
+
                     }catch(ex){
                         dLog(JSON.stringify(msg, null, 2), $asrDebug, true);
                     }
@@ -255,7 +272,7 @@
 
     var dLog = function dLog(msg, logger, failure){
         var d = new Date();
-        logger.prepend('<div style="color:'+(!failure?"#090":"#900")+';"><strong>'+(!failure?'OK':'Failed')+'</strong> <em>'+d.toISOString()+'</em> &nbsp; <pre>'+msg+'</pre></div>');
+        //logger.prepend('<div style="color:'+(!failure?"#090":"#900")+';"><strong>'+(!failure?'OK':'Failed')+'</strong> <em>'+d.toISOString()+'</em> &nbsp; <pre>'+msg+'</pre></div>');
     };
 
 })();
