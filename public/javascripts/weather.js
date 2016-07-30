@@ -9,7 +9,12 @@
     var weatherEndpoint = `http://api.wunderground.com/api/${clientID}/conditions/q/${zip}.json`;
 
     function getIcon(iconName) {
-      $icon.load(`/weatherIcons/${iconName}`);
+      var weatherIcons = {
+        "cloudy" : "cloud.html",
+        "changecloudy" : "cloud.html"
+      }
+
+      $icon.load(`/weatherIcons/${weatherIcons.iconName}`);
     }
 
     $.ajax({
