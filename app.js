@@ -113,7 +113,7 @@ app.post('/music', function(req, res, next) {
   io.emit('query', { artist: artist });
 });
 
-app.get('/weather', function(req, res, next))
+// app.get('/weather', function(req, res, next);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
