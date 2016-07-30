@@ -23,3 +23,7 @@ $.ajax({
     },
     dataType: 'json'
 });
+
+socket.on('twitter', function(weather) {
+  $("#bottom").removeClass("hidden");
+});
