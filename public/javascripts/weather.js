@@ -97,5 +97,14 @@
         temp.append(currentTemp + "°F");
       })
     });
+
+    $.ajax({
+      type: 'POST',
+      dataType: 'json',
+      url: '/weather'
+    })
+    .then(function(response) {
+      console.log(response);
+    })
   });
 })();
