@@ -3,7 +3,7 @@
     var socket = io();
 
     function getTweets(data) {
-      const data = {
+      const query = {
         query: `query { searchTwitterTweets(q: ${data.keyword}, count: 5, result_type:popular) { id created_at text }  }   `,
         variables: ""
       };
@@ -11,7 +11,7 @@
       $.ajax({
         type: "POST",
         url: "https://api.scaphold.io/graphql/7db5b0fd-0970-42d1-97d0-49b2fe88f364",
-        data: data,
+        data: query,
         success: function(result) {
           var tweets = result["data"]["searchTwitterTweets"];
           var output = [];
