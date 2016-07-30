@@ -15,6 +15,10 @@ a {
   color: #00B7FF;
 }
 
+#today {
+  float:right;
+}
+
 #topLeftCorner {
   width: 300px;
   position: fixed;
