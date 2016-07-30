@@ -90,7 +90,15 @@
 
                         switch (intent) {
                             case "WEATHER":
+                             
                                 console.log("oh hey u requested weather");
+                                $.ajax({
+                                type: "POST",
+                                url: 'https://mirror-mirror-att.herokuapp.com/Weather',
+                                data: intent,
+                                success: success,
+                                dataType: dataType
+                            });
                                 break;
                             case "TodoList":
                                 console.log("wat to do");
@@ -101,15 +109,12 @@
                             default:
                                 throw "invalid intent";
                         }
+                 
 
-                        $.ajax({
-                            type: "POST",
-                            url: '',
-                            data: intent,
-                            success: success,
-                            dataType: dataType
-                        });
-                    } catch (ex) {
+                    } 
+                    
+                    
+                    catch (ex) {
                         dLog(JSON.stringify(msg, null, 2), $asrDebug, true);
                     }
                 } else {
@@ -127,6 +132,7 @@
                 }
             }
         },
+
         onerror: function (error) {
             console.error(error);
             $content.removeClass('connected');
