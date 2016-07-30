@@ -15,10 +15,11 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP server and connect socket.io
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(http);
 
 /**
  * Listen on provided port, on all network interfaces.
