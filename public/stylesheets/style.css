@@ -1,6 +1,5 @@
 body {
   background-color: black;
-  padding: 50px;
   font: 14px "Roboto", Helvetica, Arial, sans-serif;
 }
 
@@ -70,14 +69,14 @@ a {
   right: 100px;
 }
 
-#rightMiddle {
-  width : 300px;
+#leftBottomCorner {
+  width : 200px;
   position: fixed;
-  right: 100px;
+  left: 100px;
+  bottom:200px;
 }
 
 #bottom {
-  width: 90%;
   position: fixed;
   bottom: 100px;
   font-style: italic;
