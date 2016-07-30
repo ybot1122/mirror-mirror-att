@@ -18,6 +18,13 @@ h2 {
   color: white;
 }
 
+h3 {
+  font-size: 20px;
+  font-family: "Roboto";
+  font-weight: lighter;
+  color: white;
+}
+
 a {
   color: #00B7FF;
 }
@@ -67,6 +74,12 @@ a {
   width : 300px;
   position: fixed;
   right: 100px;
+}
+
+#bottom {
+  width: 90%;
+  position: fixed;
+  bottom: 100px;
 }
 
 .hidden {
