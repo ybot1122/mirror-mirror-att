@@ -5,6 +5,13 @@ body {
 }
 
 h1 {
+  font-size: 50px;
+  font-family: "Roboto";
+  font-weight: lighter;
+  color: white;
+}
+
+h2 {
   font-size: 30px;
   font-family: "Roboto";
   font-weight: lighter;
@@ -13,6 +20,16 @@ h1 {
 
 a {
   color: #00B7FF;
+}
+
+#forecast {
+  width: 60%;
+  float: left;
+}
+
+#temp {
+  width: 40%;
+  float: left;
 }
 
 #today {
@@ -50,4 +67,8 @@ a {
   width : 300px;
   position: fixed;
   right: 100px;
+}
+
+.hidden {
+  display: none;
 }
