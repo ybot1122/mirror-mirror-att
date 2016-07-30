@@ -128,7 +128,7 @@ app.get('/music', function(req, res, next) {
 });
 
 app.post('/weather', function(req, res, next) {
-  console.log('weather');
+  io.emit('weather', { weather: 'yay' });
 });
 
 // catch 404 and forward to error handler
