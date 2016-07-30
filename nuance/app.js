@@ -83,37 +83,17 @@
                 if (msg.result_format == "nlu_interpretation_results") {
                     try {
                         dLog(JSON.stringify(msg.nlu_interpretation_results.payload.interpretations, null, 2), $asrDebug);
+                        console.log(msg);
                         var res = msg.nlu_interpretation_results.payload.interpretations;
                         var intent = msg.nlu_interpretation_results.payload.interpretations[0].action.intent.value;
-                        console.log(intent);
+                        var sentence = msg.nlu_interpretation_results.payload.interpretations[0].literal;
+                        // console.log(intent);
                         console.log(res);
+                        console.log(sentence);
+                        getIntent(intent, sentence);
 
-                        switch (intent) {
-                            case "WEATHER":
-                             
-                                console.log("oh hey u requested weather");
-                                $.ajax({
-                                type: "POST",
-                                url: 'https://mirror-mirror-att.herokuapp.com/Weather',
-                                data: intent,
-                                success: success,
-                                dataType: dataType
-                            });
-                                break;
-                            case "TodoList":
-                                console.log("wat to do");
-                                break;
-                            case "MUSIC":
-                                console.log("play tunes");
-                                break;
-                            default:
-                                throw "invalid intent";
-                        }
-                 
+                    }
 
-                    } 
-                    
-                    
                     catch (ex) {
                         dLog(JSON.stringify(msg, null, 2), $asrDebug, true);
                     }
@@ -138,8 +118,27 @@
             $content.removeClass('connected');
         }
     };
-
-
+    function getIntent(intent, sentence) {
+        var splited =  sentence.split(' ');
+        console.log(splited);
+        sendThis = splited[3];
+        console.log(sendThis);
+        var data = {
+            "keyword" : sendThis, 
+            
+        }
+        console.log(data);
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: 'https://mirror-mirror-att.herokuapp.com/twitter',
+            data: data,
+            success: function(result) {
+                console.log(result); 
+            }
+            
+        })
+    }
     function createOptions(overrides) {
         var options = Object.assign(overrides, defaultOptions);
         options.appId = $appId.val();
