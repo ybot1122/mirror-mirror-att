@@ -7,6 +7,12 @@
 
     var weatherEndpoint = `http://api.wunderground.com/api/${clientID}/conditions/q/${zip}.json`;
 
+    function getIcon(iconName) {
+      var iconHTML = $.ajax({
+        
+      })
+    }
+
     $.ajax({
       type: 'GET',
       dataType: 'jsonp',
@@ -17,6 +23,8 @@
       console.log($current);
 
       var $icon = $('<img class="weather-icon">');
+      var iconName = $current.icon;
+
       $icon.attr('src', $current.icon_url);
 
       var currentTemp = $current.temp_f;
