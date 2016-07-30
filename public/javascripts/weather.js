@@ -20,8 +20,9 @@
     .then(function(response) {
       var $current = response.current_observation;
       console.log($current);
+      
+      getIcon($current.icon);
 
-      var iconName = getIcon($current.icon);
       var currentTemp = $current.temp_f;
       var $temp = $('<p class="temps">');
 
