@@ -133,6 +133,10 @@ app.post('/weather', function(req, res, next) {
   io.emit('weather', { weather: 'yay' });
 });
 
+app.post('/twitter', function(req, res, next) {
+  res.json({ response: 'yay!'} );
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
