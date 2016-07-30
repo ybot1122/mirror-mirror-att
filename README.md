@@ -8,4 +8,4 @@ ATT Hackathon
   + expects json in body (ex: { artist: "ghostly" })
 
 ### Weather
-+ GET '/weather' - displays current weather
++ POST '/weather' - displays current weather
