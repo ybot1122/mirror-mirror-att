@@ -85,6 +85,8 @@
                         dLog(JSON.stringify(msg.nlu_interpretation_results.payload.interpretations, null, 2), $asrDebug);
                         var res = msg.nlu_interpretation_results.payload.interpretations;
                         var intent = msg.nlu_interpretation_results.payload.interpretations[0].action.intent.value;
+                        console.log(intent);
+                        console.log(res);
 
                         switch(intent) {
                             case "WEATHER":
