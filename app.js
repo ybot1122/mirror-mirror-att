@@ -14,6 +14,13 @@ var app = express();
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+// CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 /**
  * Create HTTP server and connect socket.io
  */
@@ -89,12 +96,6 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-// CORS
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 var routes = require('./routes/index');
 
