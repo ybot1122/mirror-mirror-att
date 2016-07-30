@@ -1,8 +1,49 @@
 body {
+  background-color: black;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Roboto", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 30px;
+  font-family: "Roboto";
+  font-weight: lighter;
+  color: white;
 }
 
 a {
   color: #00B7FF;
+}
+
+#topLeftCorner {
+  width: 300px;
+  position: fixed;
+  top: 100px;
+  left: 100px;
+}
+
+#topRightCorner {
+  width: 300px;
+  position: fixed;
+  top: 100px;
+  right: 100px;
+}
+
+#leftMiddle {
+  width: 300px;
+  position: fixed;
+  top: 100px;
+  right: 100px;
+}
+
+#rightMiddle {
+  width : 300px;
+  position: fixed;
+  right: 100px;
+}
+
+#rightMiddle {
+  width : 300px;
+  position: fixed;
+  right: 100px;
 }
