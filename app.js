@@ -134,6 +134,8 @@ app.post('/weather', function(req, res, next) {
 });
 
 app.post('/twitter', function(req, res, next) {
+  var data = req.body;
+  console.log(data);
   io.emit('twitter', { response: 'yay!'});
   res.json({ response: 'yay!'} );
 });
