@@ -122,6 +122,8 @@ app.post('/music', function(req, res, next) {
   io.emit('query', { artist: artist });
 });
 
+// app.get('/weather', function(req, res, next);
+
 // test music endpoint
 app.get('/music', function(req, res, next) {
   io.emit('query', { artist: 'ghostly'});
