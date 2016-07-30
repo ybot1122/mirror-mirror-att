@@ -89,6 +89,13 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
+// CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 var routes = require('./routes/index');
 
 // view engine setup
@@ -105,12 +112,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // serve libs from node_modules
 app.use('/scripts', express.static(path.join(__dirname, './node_modules')));
 
-// CORS
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 app.use('/', routes);
 
