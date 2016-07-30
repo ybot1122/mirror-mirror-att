@@ -9,10 +9,11 @@ $.ajax({
     data: data,
     success: function(result) {
         var tweets = result["data"]["searchTwitterTweets"];
-        console.log(tweets);
-        var output;
-        for each(i in tweets) {
-          output.push('"'+i["text"]+'');
+        var output = [];
+        for(var i=0; i<tweets.length; i++) {
+          var singleTweet = "      '"+tweets[i]["text"]+"'  -------- "
+          console.log(singleTweet);
+          output.push(singleTweet);
         }
         $("#bottom").append(output);
     },
