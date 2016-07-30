@@ -3,9 +3,10 @@
     var clock = $('#clock');
 
     function updateClock() {
-      clock.text(moment().format('LTS'));
+      clock.text(moment().format('LT'));
     }
 
-    setInterval(updateClock, 1000);
+    updateClock();
+    setInterval(updateClock, 60000);
   });
 })();
