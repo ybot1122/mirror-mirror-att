@@ -6,13 +6,11 @@
     var temp = $('#temp');
     var currentTime = moment()
     var night;
-
+    var socket = io();
     var weatherEndpoint = `http://api.wunderground.com/api/${clientID}/conditions/q/${zip}.json`;
-
     var sunTimes = `http://api.wunderground.com/api/${clientID}/astronomy/q/${zip}.json`;
 
     function getIcon(iconName) {
-
       var weatherIconsDay = {
         "chanceflurries" : "cloudsnow.html",
         "chancerain" : "clouddrizzle.html",
@@ -58,6 +56,10 @@
       } else {
         currentForecast.load(`/weatherIcons/${weatherIconsNight[iconName]}`)
       }
+    }
+
+    socket.on('weather', function(weather) {
+      $("#topRightCorner").removeClass("hidden");
     }
 
     $.ajax({

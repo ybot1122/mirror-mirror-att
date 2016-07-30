@@ -68,3 +68,7 @@ a {
   position: fixed;
   right: 100px;
 }
+
+.hidden {
+  display: none;
+}
