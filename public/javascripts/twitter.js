@@ -14,7 +14,7 @@ $.ajax({
     url: "https://api.scaphold.io/graphql/7db5b0fd-0970-42d1-97d0-49b2fe88f364",
     data: data,
     success: function(result) {
-        console.log("That was easy!");
+        console.log("That was easy!", result);
         return result;
     },
     error: function(xhr, ajaxOptions, error) {
