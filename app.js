@@ -19,7 +19,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-var io = require('socket.io')(http);
+var io = require('socket.io').listen(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -107,11 +107,10 @@ app.use('/scripts', express.static(path.join(__dirname, './node_modules')));
 
 app.use('/', routes);
 
-
 app.post('/music', function(req, res, next) {
-  var scQuery = req.body.text;
+  var artist = req.body.artist;
 
-
+  io.emit('query', { artist: artist });
 });
 
 // catch 404 and forward to error handler
