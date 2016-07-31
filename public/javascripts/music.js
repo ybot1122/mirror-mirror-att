@@ -15,18 +15,17 @@
           console.log(track);
           SC.stream(`/tracks/${track[0].id}`).then(function(player){
             player.play();
-            $music.append($logo);
+            $("#music").append($logo);
           });
       });
     });
 
     // testing
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: '/music'
-    })
-    .then(function(response) {});
-
+    // $.ajax({
+    //   type: 'GET',
+    //   dataType: 'json',
+    //   url: '/music'
+    // })
+    // .then(function(response) {});
   });
 })();
