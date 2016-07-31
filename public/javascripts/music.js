@@ -19,7 +19,7 @@
           });
       });
     });
-    $("#music").append($logo);
+    
     // testing
     // $.ajax({
     //   type: 'GET',
