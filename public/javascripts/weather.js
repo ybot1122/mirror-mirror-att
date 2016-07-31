@@ -7,8 +7,8 @@
     var currentTime = moment()
     var night;
     var socket = io();
-    var weatherEndpoint = `https://api.wunderground.com/api/${clientID}/conditions/q/${zip}.json`;
-    var sunTimes = `https://api.wunderground.com/api/${clientID}/astronomy/q/${zip}.json`;
+    var weatherEndpoint = "https://api.wunderground.com/api/+"clientID"+/conditions/q/${zip}.json";
+    var sunTimes = "https://api.wunderground.com/api/+"clientID"+/astronomy/q/${zip}.json";
 
     function getIcon(iconName) {
       var weatherIconsDay = {
@@ -52,9 +52,9 @@
       }
 
       if (night == "false") {
-        currentForecast.load(`/weatherIcons/${weatherIconsDay[iconName]}`);
+        currentForecast.load("/weatherIcons/"+weatherIconsDay[iconName]}+"");
       } else {
-        currentForecast.load(`/weatherIcons/${weatherIconsNight[iconName]}`)
+        currentForecast.load("/weatherIcons/"+weatherIconsNight[iconName]}+"")
       }
     }
 
@@ -75,12 +75,12 @@
       })
       .then(function(output) {
         console.log(output["sun_phase"]["sunset"]);
-        var sunsetHour = parseInt(`${output["sun_phase"]["sunset"]["hour"]}`);
-        var sunsetMinute = parseInt(`${output["sun_phase"]["sunset"]["minute"]}`);
-        var sunriseHour = parseInt(`${output["sun_phase"]["sunrise"]["hour"]}`);
-        var sunriseMinute = parseInt(`${output["sun_phase"]["sunrise"]["minute"]}`);
-        var currentHour = parseInt(`${output["moon_phase"]["current_time"]["hour"]}`);
-        var currentMinute = parseInt(`${output["moon_phase"]["current_time"]["minute"]}`);
+        var sunsetHour = parseInt(""+output["sun_phase"]["sunset"]["hour"]}+"");
+        var sunsetMinute = parseInt(""+output["sun_phase"]["sunset"]["minute"]+"");
+        var sunriseHour = parseInt(""+output["sun_phase"]["sunrise"]["hour"]+"");
+        var sunriseMinute = parseInt(""+output["sun_phase"]["sunrise"]["minute"]+"");
+        var currentHour = parseInt(""+output["moon_phase"]["current_time"]["hour"]+"");
+        var currentMinute = parseInt(""+output["moon_phase"]["current_time"]["minute"]+"");
 
         if ((currentHour > sunsetHour && currentMinute > sunsetMinute) ||  (currentHour < sunriseHour && currentMinute < sunriseMinute)) {
           night = "true";

@@ -10,10 +10,10 @@
 
     socket.on('query', function(query) {
       console.log(query);
-      SC.get(`/users/${query.artist}/tracks`, { limit: 1 })
+      SC.get("/users/"+${query.artist}+"/tracks", { limit: 1 })
         .then(function(track) {
           console.log(track);
-          SC.stream(`/tracks/${track[0].id}`).then(function(player){
+          SC.stream("/tracks/"+${track[0].id}+"").then(function(player){
             player.play();
             $("#music").append($logo);
           });
