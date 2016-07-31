@@ -4,8 +4,11 @@
 
     function getTweets(data) {
       console.log(data.keyword);
+      var word = String(data.keyword);
+      console.log(word);
+      console.log(typeof word);
       const query = {
-        query: `query { searchTwitterTweets(q: ${String(data.keyword)}, count: 5, result_type:popular) { id created_at text }  }   `,
+        query: `query { searchTwitterTweets(q: ${word}, count: 5, result_type:popular) { id created_at text }  }   `,
         variables: ""
       };
 
