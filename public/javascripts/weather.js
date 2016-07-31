@@ -75,7 +75,7 @@
       })
       .then(function(output) {
         console.log(output["sun_phase"]["sunset"]);
-        var sunsetHour = parseInt(""+output["sun_phase"]["sunset"]["hour"]}+"");
+        var sunsetHour = parseInt(""+output["sun_phase"]["sunset"]["hour"]+"");
         var sunsetMinute = parseInt(""+output["sun_phase"]["sunset"]["minute"]+"");
         var sunriseHour = parseInt(""+output["sun_phase"]["sunrise"]["hour"]+"");
         var sunriseMinute = parseInt(""+output["sun_phase"]["sunrise"]["minute"]+"");
