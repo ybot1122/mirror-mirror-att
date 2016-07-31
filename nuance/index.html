@@ -1,0 +1,177 @@
+<!--Copyright © 2016 Nuance Communications, Inc. All rights reserved.-->
+<!--Published by Nuance Communications, Inc.-->
+<!--One Wayside Road, Burlington, Massachusetts 01803, U.S.A.-->
+
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <title>Nuance Websockets JS Sample</title>
+
+    <!--  LIBRARY DEPS -->
+    <link href="lib/bootstrap.min.css" rel="stylesheet">
+    <link href='lib/font-awesome.min.css' rel="stylesheet">
+    <link href='styles/style.css' rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet" type="text/css">
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+
+    <!--  WEB SDK DEPS -->
+    <script src='lib/resampler.js'></script>
+    <script src='lib/speex.js'></script>
+    <script src='lib/nuance.js'></script>
+</head>
+<body>
+
+    <div id="content" class='container'>
+        <!--  HEADER -->
+        <h1 class='page-header'>
+            <img style="margin-left: 25px;" src="images/NMIX.png" width="220px"> Runtime test console
+            <div class='pull-right' style="margin-top:60px; margin-right:50px;">
+                <div id='status-label'></div>
+                <div id='status-indicator'>&nbsp;</div>
+            </div>
+        </h1>
+
+        <div class='row' style='min-height:400px;padding: 0px 40px 40px 40px;'>
+
+            <!--  CREDENTIALS -->
+            <div class='col-md-12'>
+                <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                        <strong>Credentials</strong>
+                        <div class="pull-right">
+                            <a href="javascript:void(0);" id="show-hide-credentials" class="show-hide">Hide</a>
+                        </div>
+                    </div>
+                    <div class='panel-body' id="credentials-view">
+                        <form class='form' role='form' onsubmit="return false;">
+                            <div class='form-group'>
+                                <label>WebSockets Hostname</label>
+                                <input id="url" type="text" class="form-control" placeholder="URL" value="wss://ws.dev.nuance.com/?"/>
+                            </div>
+                            <div class='form-group'>
+                                <label>App Id (fka. NMAID)</label>
+                                <input id="app_id" type="text" class="form-control" placeholder="AppId"/>
+                            </div>
+                            <div class='form-group'>
+                                <label>App Key (128-byte string)</label>
+                                <input id="app_key" type="text" class="form-control" placeholder="AppKey"/>
+                            </div>
+                            <div class='row'>
+                                <div class='form-group col-xs-4'>
+                                    <label>User id (unique identifier for profile)</label>
+                                    <input id="user_id" type="text" class="form-control" placeholder="UserId"/>
+                                </div>
+                                <div class='form-group col-xs-4'>
+                                    <label>Mix.nlu Context Tag</label>
+                                    <input id="nlu_tag" type="text" class="form-control" placeholder="Context Tag (Only required if performing NLU)"/>
+                                </div>
+                                <div class='form-group col-xs-4'>
+                                    <label>Language</label>
+                                    <select class='form-control' id="language">
+                                        <option value="eng-USA">English US (eng-USA)</option>
+                                        <option value="eng-GBR">English (GB)</option>
+                                        <option value="fra-FRA">French (France)</option>
+                                        <option value="deu-DEU">German</option>
+                                        <option value="ita-ITA">Italian</option>
+                                        <option value="jpn-JPN">Japanese</option>
+                                        <option value="cmn-CHN">Mandarin (China / Simplified)</option>
+                                        <option value="spa-ESP">Spanish</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='btn-block'>
+                                <button id='save_creds' type='button' class='btn btn-primary col-xs-6'>SAVE</button>
+                                <button id='reset_creds' type='button' class='btn btn-warning col-xs-6'>RESET</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--  TEXT NLU -->
+            <div id="nlu" class="col-md-12">
+                <div class='panel panel-default'>
+                    <div class="panel-heading">
+                        <strong>Natural Language (Text)</strong>
+                    </div>
+                    <div class="panel-body">
+                        <form class='form' role='form' onsubmit="return false;">
+                            <div class="form-group">
+                                <input id="nlu_text" type="text" class="form-control" placeholder="Text to process"/>
+                            </div>
+                            <br/>
+                            <button id='nlu_go' type='button' class='btn btn-primary btn-block'>
+                                <span id='nlu_label'>EXECUTE</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div id="nlu_debug_output" class="panel-body max-600"></div>
+                </div>
+            </div>
+
+            <!--  ASR / NLU -->
+            <div id="asr" class='col-md-12'>
+                <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                        <strong>Speech Recognition</strong>
+                    </div>
+                    <div class='panel-body'>
+                        <div class="checkbox">
+                            <label>
+                                <input id="use_nlu" type="checkbox"/> Enable NLU (+ ASR customization)
+                            </label>
+                        </div>
+                        <canvas id="asr_viz" height="220" ></canvas>
+                        <br/>
+                        <button id='asr_go' type='button' class='btn btn-primary btn-block'>
+                            <i class='fa fa-microphone'></i> <span id='asr_label'>RECORD</span>
+                        </button>
+                    </div>
+                    <div id='asr_debug_output' class='panel-body max-600' ></div>
+                </div>
+            </div>
+
+            <!--  TTS -->
+            <div id="tts" class='col-md-12'>
+                <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                        <strong>Text to Speech</strong>
+                    </div>
+                    <div class='panel-body'>
+                        <form class='form' role='form' onsubmit="return false;">
+                            <div class='form-group'>
+                                <textarea id="tts_text" class='form-control textarea' placeholder='What text would you like to have synthesized?' rows='12'></textarea>
+                            </div>
+                            <div class='form-group'>
+                                <button id='tts_go' type='button' class='btn btn-primary btn-block'>
+                                    <i class='fa fa-comment'></i> SPEAK
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id='tts_debug_output' class='panel-body max-600'></div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr/>
+
+        <!--  FOOTER -->
+        <footer class='col-md-12 right-aligned'>
+            &copy; Nuance Communications 2016
+        </footer>
+
+    </div>
+
+    <!--  APPLICATION -->
+
+    <script src='configuration.js'></script>
+    <script src='app.js'></script>
+
+</body>
+</html>
