@@ -8,7 +8,7 @@
       console.log(word);
       console.log(typeof word);
       const query = {
-        query: "query { searchTwitterTweets(q: "+word+", count: 5, result_type:popular) { id created_at text }  }",
+        query: 'query { searchTwitterTweets(q: "Trump", count: 5, result_type:popular) { id created_at text }  }   ',
         variables: ""
       };
 

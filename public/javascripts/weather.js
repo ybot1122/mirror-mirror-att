@@ -106,6 +106,5 @@
     // .then(function(response) {
     //   console.log(response);
     // })
-    $("#topRightCorner").removeClass("hidden");
   });
 })();
