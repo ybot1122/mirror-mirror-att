@@ -7,8 +7,8 @@
     var currentTime = moment()
     var night;
     var socket = io();
-    var weatherEndpoint = "https://api.wunderground.com/api/+"clientID"+/conditions/q/${zip}.json";
-    var sunTimes = "https://api.wunderground.com/api/+"clientID"+/astronomy/q/${zip}.json";
+    var weatherEndpoint = "https://api.wunderground.com/api/"+clientID+"/conditions/q/${zip}.json2";
+    var sunTimes = "https://api.wunderground.com/api/"+clientID+"/astronomy/q/${zip}.json";
 
     function getIcon(iconName) {
       var weatherIconsDay = {
