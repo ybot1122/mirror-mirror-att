@@ -1,23 +1,23 @@
-(function(){
+(function () {
 
     // UserMedia
 
     var userMedia = undefined;
     navigator.getUserMedia = navigator.getUserMedia
-    || navigator.webkitGetUserMedia
-    || navigator.mozGetUserMedia
-    || navigator.msGetUserMedia;
+        || navigator.webkitGetUserMedia
+        || navigator.mozGetUserMedia
+        || navigator.msGetUserMedia;
 
 
-    if(!navigator.getUserMedia){
+    if (!navigator.getUserMedia) {
         console.error("No getUserMedia Support in this Browser");
     }
 
     navigator.getUserMedia({
-        audio:true
-    }, function(stream){
+        audio: true
+    }, function (stream) {
         userMedia = stream;
-    }, function(error){
+    }, function (error) {
         console.error("Could not get User Media: " + error);
     });
 
@@ -49,9 +49,9 @@
     var $asrVizCtx = $asrViz.get()[0].getContext('2d');
     var $showHideToggle = $('#show-hide-credentials');
 
-    $showHideToggle.on('click', function(){
+    $showHideToggle.on('click', function () {
         var cv = $("#credentials-view");
-        if(cv.is(':visible')){
+        if (cv.is(':visible')) {
             $(this).text('Show');
         } else {
             $(this).text('Hide');
@@ -62,31 +62,35 @@
     // Default options for all transactions
 
     var defaultOptions = {
-        onopen: function() {
+        onopen: function () {
             console.log("Websocket Opened");
             $content.addClass('connected');
         },
-        onclose: function() {
+        onclose: function () {
             console.log("Websocket Closed");
             $content.removeClass('connected');
         },
-        onvolume: function(vol) {
+        onvolume: function (vol) {
             viz(vol);
         },
-        onresult: function(msg) {
+        onresult: function (msg) {
             // console.log(msg);
             if (msg.result_type == "NMDP_TTS_CMD") {
                 dLog(JSON.stringify(msg, null, 2), $ttsDebug);
             } else if (msg.result_type == "NVC_ASR_CMD") {
                 dLog(JSON.stringify(msg, null, 2), $asrDebug);
             } else if (msg.result_type == "NDSP_ASR_APP_CMD") {
-                if(msg.result_format == "nlu_interpretation_results") {
-                    try{
+                if (msg.result_format == "nlu_interpretation_results") {
+                    try {
                         dLog(JSON.stringify(msg.nlu_interpretation_results.payload.interpretations, null, 2), $asrDebug);
+                        console.log(msg);
                         var res = msg.nlu_interpretation_results.payload.interpretations;
                         var intent = msg.nlu_interpretation_results.payload.interpretations[0].action.intent.value;
-                        console.log(intent);
+                        var sentence = msg.nlu_interpretation_results.payload.interpretations[0].literal;
+                        // console.log(intent);
                         console.log(res);
+                        console.log(sentence);
+                        getIntent(intent, sentence);
 
                         switch(intent) {
                             case "WEATHER":
@@ -133,10 +137,10 @@
                     dLog(JSON.stringify(msg, null, 2), $asrDebug);
                 }
             } else if (msg.result_type === "NDSP_APP_CMD") {
-                if(msg.result_format == "nlu_interpretation_results") {
-                    try{
+                if (msg.result_format == "nlu_interpretation_results") {
+                    try {
                         dLog(JSON.stringify(msg.nlu_interpretation_results.payload.interpretations, null, 2), $nluDebug);
-                    }catch(ex){
+                    } catch (ex) {
                         dLog(JSON.stringify(msg, null, 2), $nluDebug, true);
                     }
                 } else {
@@ -144,12 +148,33 @@
                 }
             }
         },
-        onerror: function(error) {
+
+        onerror: function (error) {
             console.error(error);
             $content.removeClass('connected');
         }
     };
-
+    function getIntent(intent, sentence) {
+        var splited =  sentence.split(' ');
+        console.log(splited);
+        sendThis = splited[3];
+        console.log(sendThis);
+        var data = {
+            "keyword" : sendThis, 
+            
+        }
+        console.log(data);
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: 'https://mirror-mirror-att.herokuapp.com/twitter',
+            data: data,
+            success: function(result) {
+                console.log(result); 
+            }
+            
+        })
+    }
     function createOptions(overrides) {
         var options = Object.assign(overrides, defaultOptions);
         options.appId = $appId.val();
@@ -161,7 +186,7 @@
 
     // Text NLU
 
-    function textNlu(evt){
+    function textNlu(evt) {
         var options = createOptions({
             text: $("#nlu_text").val(),
             tag: $nluTag.val(),
@@ -173,8 +198,8 @@
 
     // ASR / NLU
 
-    function asr(evt){
-        if(isRecording) {
+    function asr(evt) {
+        if (isRecording) {
             Nuance.stopASR();
             $asrLabel.text('RECORD');
         } else {
@@ -184,7 +209,7 @@
                 language: $language.val()
             });
 
-            if($useNlu.prop('checked')) {
+            if ($useNlu.prop('checked')) {
                 options.nlu = true;
                 options.tag = $nluTag.val();
             }
@@ -197,7 +222,7 @@
 
     // TTS
 
-    function tts(evt){
+    function tts(evt) {
         var options = createOptions({
             language: $language.val(),
             voice: TTS_VOICE,
@@ -209,17 +234,17 @@
 
     // ASR volume visualization
 
-    window.requestAnimFrame = (function(){
-        return  window.requestAnimationFrame       ||
-                window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame    ||
-                function(callback, element){
-                    window.setTimeout(callback, 1000 / 60);
-                };
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            function (callback, element) {
+                window.setTimeout(callback, 1000 / 60);
+            };
     })();
 
     var asrVizData = {};
-    function cleanViz(){
+    function cleanViz() {
         var parentWidth = $asrViz.parent().width();
         $asrViz[0].getContext('2d').canvas.width = parentWidth;
         asrVizData = {
@@ -231,33 +256,33 @@
         var w = asrVizData.w, h = asrVizData.h;
         $asrVizCtx.clearRect(0, 0, w, h); // TODO: pull out height/width
         $asrVizCtx.strokeStyle = '#333';
-        var y = (h/2) + 0.5;
-        $asrVizCtx.moveTo(0,y);
-        $asrVizCtx.lineTo(w-1,y);
+        var y = (h / 2) + 0.5;
+        $asrVizCtx.moveTo(0, y);
+        $asrVizCtx.lineTo(w - 1, y);
         $asrVizCtx.stroke();
         asrVizData.col = 0;
     }
 
-    function viz(amplitudeArray){
+    function viz(amplitudeArray) {
         var h = asrVizData.h;
-        requestAnimFrame(function(){
+        requestAnimFrame(function () {
             // Drawing the Time Domain onto the Canvas element
             var min = 999999;
             var max = 0;
-            for(var i=0; i<amplitudeArray.length; i++){
-                var val = amplitudeArray[i]/asrVizData.h;
-                if(val>max){
-                    max=val;
-                } else if(val<min){
-                    min=val;
+            for (var i = 0; i < amplitudeArray.length; i++) {
+                var val = amplitudeArray[i] / asrVizData.h;
+                if (val > max) {
+                    max = val;
+                } else if (val < min) {
+                    min = val;
                 }
             }
-            var yLow = h - (h*min) - 1;
-            var yHigh = h - (h*max) - 1;
+            var yLow = h - (h * min) - 1;
+            var yHigh = h - (h * max) - 1;
             $asrVizCtx.fillStyle = '#6d8f52';
-            $asrVizCtx.fillRect(asrVizData.col,yLow,asrVizData.tickWidth,yHigh-yLow);
+            $asrVizCtx.fillRect(asrVizData.col, yLow, asrVizData.tickWidth, yHigh - yLow);
             asrVizData.col += 1;
-            if(asrVizData.col>=asrVizData.w){
+            if (asrVizData.col >= asrVizData.w) {
                 asrVizData.col = 0;
                 cleanViz();
             }
@@ -273,12 +298,12 @@
         $appId.val(localStorage.getItem("app_id") || APP_ID || '');
         $appKey.val(localStorage.getItem("app_key") || APP_KEY || '');
         $userId.val(localStorage.getItem("user_id") || USER_ID || '');
-        $nluTag.val(localStorage.getItem("nlu_tag") || NLU_TAG ||  '');
+        $nluTag.val(localStorage.getItem("nlu_tag") || NLU_TAG || '');
         $language.val(localStorage.getItem("language") || ASR_LANGUAGE || 'eng-USA');
     }
     setCredentialFields();
 
-    $saveCreds.on('click', function() {
+    $saveCreds.on('click', function () {
         localStorage.setItem("url", $url.val());
         localStorage.setItem("app_id", $appId.val());
         localStorage.setItem("app_key", $appKey.val());
@@ -286,7 +311,7 @@
         localStorage.setItem("nlu_tag", $nluTag.val());
         localStorage.setItem("language", $language.val());
     });
-    $resetCreds.on('click', function() {
+    $resetCreds.on('click', function () {
         localStorage.setItem("url", URL);
         localStorage.setItem("app_id", APP_ID);
         localStorage.setItem("app_key", APP_KEY);
@@ -296,7 +321,7 @@
         setCredentialFields();
     });
 
-    var dLog = function dLog(msg, logger, failure){
+    var dLog = function dLog(msg, logger, failure) {
         var d = new Date();
         //logger.prepend('<div style="color:'+(!failure?"#090":"#900")+';"><strong>'+(!failure?'OK':'Failed')+'</strong> <em>'+d.toISOString()+'</em> &nbsp; <pre>'+msg+'</pre></div>');
     };

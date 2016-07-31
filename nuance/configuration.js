@@ -16,5 +16,3 @@ var ASR_LANGUAGE = "eng-USA";
 var TTS_LANGUAGE = "eng-USA";
 var TTS_VOICE = "";
 
-
-// Credentials
