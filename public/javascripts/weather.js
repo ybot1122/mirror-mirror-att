@@ -58,9 +58,7 @@
       }
     }
 
-    socket.on('weather', function(weather) {
-      $("#topRightCorner").removeClass("hidden");
-    });
+    $("#topRightCorner").removeClass("hidden");
 
     $.ajax({
       type: 'GET',
