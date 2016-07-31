@@ -98,13 +98,13 @@
       })
     });
 
-    $.ajax({
-      type: 'POST',
-      dataType: 'json',
-      url: '/weather'
-    })
-    .then(function(response) {
-      console.log(response);
-    })
+    // $.ajax({
+    //   type: 'POST',
+    //   dataType: 'json',
+    //   url: '/weather'
+    // })
+    // .then(function(response) {
+    //   console.log(response);
+    // })
   });
 })();

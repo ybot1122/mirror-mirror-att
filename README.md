@@ -9,3 +9,7 @@ ATT Hackathon
 
 ### Weather
 + POST '/weather' - displays current weather
+
+### Twitter
++ POST '/twitter' - displays twitter feed based on last keyword spoken
+  + expects FOUR WORDS (ex: twitter search for golf)
