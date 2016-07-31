@@ -119,7 +119,7 @@ app.use('/', routes);
 app.post('/music', function(req, res, next) {
   var artist = req.body.artist;
 
-  io.emit('query', { artist: artist });
+  io.emit('query', { artist: "ghostly" });
 });
 
 // app.get('/weather', function(req, res, next);
