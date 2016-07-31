@@ -90,13 +90,37 @@
 
                         switch(intent) {
                             case "WEATHER":
-                                console.log("oh hey u requested weather");
-                                break;
-                            case "TodoList":
-                                console.log("wat to do");
+                                $.ajax({
+                                    type: 'post',
+                                    url: 'https://mirror-mirror-att.herokuapp.com/weather',
+                                    data: '',
+                                    success: function(res2) {
+                                        console.log(res2);
+                                    }
+                                })
                                 break;
                             case "MUSIC":
-                                console.log("play tunes");
+                                console.log(res);
+                                $.ajax({
+                                    type: 'post',
+                                    url: 'https://mirror-mirror-att.herokuapp.com/music',
+                                    data: { artist: 'ghostly' },
+                                    success: function(res2) {
+                                        console.log(res2);
+                                    }
+                                })
+                                break;
+
+                            case "TwitterSearch":
+                                console.log(res);
+                                $.ajax({
+                                    type: 'post',
+                                    url: 'https://mirror-mirror-att.herokuapp.com/twitter',
+                                    data: { keyword: 'golf' },
+                                    success: function(res2) {
+                                        console.log(res2);
+                                    }
+                                })
                                 break;
                             default:
                                 throw "invalid intent";
