@@ -100,11 +100,12 @@
                                 })
                                 break;
                             case "MUSIC":
-                                console.log(res);
+                                console.log(msg);
+                                var d = msg.nlu_interpretation_results.payload.interpretations[0].concepts.Artist[0].value;
                                 $.ajax({
                                     type: 'post',
                                     url: 'https://mirror-mirror-att.herokuapp.com/music',
-                                    data: { artist: 'ghostly' },
+                                    data: { artist: d },
                                     success: function(res2) {
                                         console.log(res2);
                                     }
@@ -112,7 +113,6 @@
                                 break;
 
                             case "TwitterSearch":
-                                console.log(res);
                                 $.ajax({
                                     type: 'post',
                                     url: 'https://mirror-mirror-att.herokuapp.com/twitter',
