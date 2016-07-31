@@ -2,7 +2,7 @@
   $(document).ready(function() {
     var socket = io();
     var $music = $('<div id="music">');
-    var $logo = $('<img src="/images/sc_logo.png">');
+    var $logo = $('<img class="musicbars" src="/images/musicbars.gif"> ');
 
     SC.initialize({
       client_id: '7b9c5b47c81e949b866695aaee59f001'
@@ -19,7 +19,7 @@
           });
       });
     });
-
+    $("#music").append($logo);
     // testing
     // $.ajax({
     //   type: 'GET',
