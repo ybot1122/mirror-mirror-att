@@ -25,6 +25,7 @@
         },
         error: function(xhr, ajaxOptions, error) {
           console.log("That didn't go so well.");
+          console.log(error);
           return error;
         },
         dataType: 'json'
