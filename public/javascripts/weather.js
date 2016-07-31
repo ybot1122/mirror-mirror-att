@@ -75,12 +75,12 @@
       })
       .then(function(output) {
         console.log(output["sun_phase"]["sunset"]);
-        var sunsetHour = parseInt(""+output["sun_phase"]["sunset"]["hour"]+"");
-        var sunsetMinute = parseInt(""+output["sun_phase"]["sunset"]["minute"]+"");
-        var sunriseHour = parseInt(""+output["sun_phase"]["sunrise"]["hour"]+"");
-        var sunriseMinute = parseInt(""+output["sun_phase"]["sunrise"]["minute"]+"");
-        var currentHour = parseInt(""+output["moon_phase"]["current_time"]["hour"]+"");
-        var currentMinute = parseInt(""+output["moon_phase"]["current_time"]["minute"]+"");
+        var sunsetHour = parseInt(""+output['sun_phase']['sunset']['hour']+"");
+        var sunsetMinute = parseInt(""+output['sun_phase']['sunset']['minute']+"");
+        var sunriseHour = parseInt(""+output['sun_phase']['sunrise']['hour']+"");
+        var sunriseMinute = parseInt(""+output['sun_phase']['sunrise']['minute']+"");
+        var currentHour = parseInt(""+output['moon_phase']['current_time']['hour']+"");
+        var currentMinute = parseInt(""+output['moon_phase']['current_time']['minute']+"");
 
         if ((currentHour > sunsetHour && currentMinute > sunsetMinute) ||  (currentHour < sunriseHour && currentMinute < sunriseMinute)) {
           night = "true";
