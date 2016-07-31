@@ -120,7 +120,7 @@ app.post('/music', function(req, res, next) {
   var artist = req.body.artist;
 
   io.emit('query', { artist: "ghostly" });
-  res.json({ response: 'yay'});
+  res.send({ response: 'yay'});
 });
 
 // app.get('/weather', function(req, res, next);
