@@ -52,9 +52,9 @@
       }
 
       if (night == "false") {
-        currentForecast.load("/weatherIcons/"+weatherIconsDay[iconName]}+"");
+        currentForecast.load("/weatherIcons/"+weatherIconsDay[iconName]+"");
       } else {
-        currentForecast.load("/weatherIcons/"+weatherIconsNight[iconName]}+"")
+        currentForecast.load("/weatherIcons/"+weatherIconsNight[iconName]+"")
       }
     }
 
@@ -106,5 +106,6 @@
     // .then(function(response) {
     //   console.log(response);
     // })
+    $("#topRightCorner").removeClass("hidden");
   });
 })();
