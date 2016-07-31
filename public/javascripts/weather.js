@@ -10,7 +10,10 @@
    var weatherEndpoint = 'https://api.wunderground.com/api/'+clientID+'/conditions/q/'+zip+'.json';
    var sunTimes = 'https://api.wunderground.com/api/'+clientID+'/astronomy/q/'+zip+'.json';
 
-   function getIcon(iconName) {
+
+   function getIcon(iconName, night) {
+
+     console.log(night);
      var weatherIconsDay = {
        "chanceflurries" : "cloudsnow.html",
        "chancerain" : "clouddrizzle.html",
@@ -58,6 +61,8 @@
      }
    }
 
+   $("#topRightCorner").removeClass("hidden");
+
    socket.on('weather', function(weather) {
      $("#topRightCorner").removeClass("hidden");
    });
@@ -82,16 +87,16 @@
        var currentHour = parseInt(output["moon_phase"]["current_time"]["hour"]);
        var currentMinute = parseInt(output["moon_phase"]["current_time"]["minute"]);
 
-       if ((currentHour > sunsetHour && currentMinute > sunsetMinute) ||  (currentHour < sunriseHour && currentMinute < sunriseMinute)) {
+       console.log(currentHour);
+       if ((currentHour > sunsetHour || (currentHour == currentMinute && currentMinute > sunsetMinute)) ||  (currentHour < sunriseHour || (currentHour == sunriseHour && currentMinute < sunriseMinute))) {
          night = "true";
        } else {
          night = "false";
        }
 
        var $current = response.current_observation;
-       console.log($current);
 
-       getIcon($current.icon);
+       getIcon($current.icon, night);
 
        var currentTemp = $current.temp_f;
        temp.append(currentTemp + "°F");
