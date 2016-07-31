@@ -3,6 +3,7 @@
     var socket = io();
 
     function getTweets(data) {
+      console.log(data);
       const query = {
         query: `query { searchTwitterTweets(q: ${data.keyword}, count: 5, result_type:popular) { id created_at text }  }   `,
         variables: ""
