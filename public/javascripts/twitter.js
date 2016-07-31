@@ -34,10 +34,13 @@
         dataType: 'json'
       });
     }
+    var data = {
+      keyword: 'golf'
+    }
 
-    socket.on('twitter', function(data) {
+    // socket.on('twitter', function(data) {
       getTweets(data);
       $("#bottom").removeClass("hidden");
-    });
+    // });
   });
 })();
