@@ -120,6 +120,7 @@ app.post('/music', function(req, res, next) {
   var artist = req.body.artist;
 
   io.emit('query', { artist: "ghostly" });
+  res.send({ response: 'yay'});
 });
 
 // app.get('/weather', function(req, res, next);
@@ -127,10 +128,12 @@ app.post('/music', function(req, res, next) {
 // test music endpoint
 app.get('/music', function(req, res, next) {
   io.emit('query', { artist: 'ghostly'});
+  res.json({ response: 'yay'});
 });
 
 app.post('/weather', function(req, res, next) {
   io.emit('weather', { weather: 'yay' });
+  res.json({ response: 'yay'});
 });
 
 app.post('/twitter', function(req, res, next) {
