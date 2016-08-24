@@ -2,12 +2,14 @@
  $(document).ready(function() {
    var clientID = '1aea91f901544d2a';
    var zip = '98101';
-   var currentForecast = $('#forecast');
-   var temp = $('#temp');
+   var currentWeather = $('#currentWeather');
+   var $temp = $('#temp');
+   var forecast = $('#forecast');
    var currentTime = moment()
    var night;
    var socket = io();
    var weatherEndpoint = 'https://api.wunderground.com/api/'+clientID+'/conditions/q/'+zip+'.json';
+   var forecastEndpoint = 'https://api.wunderground.com/api/'+clientID+'/forecast10day/q/'+zip+'.json';
    var sunTimes = 'https://api.wunderground.com/api/'+clientID+'/astronomy/q/'+zip+'.json';
 
 
@@ -55,9 +57,9 @@
      }
 
      if (night == "false") {
-       currentForecast.load('/weatherIcons/'+weatherIconsDay[iconName]);
+       return ('/weatherIcons/'+weatherIconsDay[iconName]+'');
      } else {
-       currentForecast.load('/weatherIcons/'+weatherIconsNight[iconName])
+       return ('/weatherIcons/'+weatherIconsNight[iconName]+'');
      }
    }
 
@@ -72,44 +74,54 @@
      dataType: 'jsonp',
      url: weatherEndpoint
    })
-   .then(function(response) {
+   .then(function(weatherResponse) {
      $.ajax({
        type: 'GET',
        dataType: 'jsonp',
-       url: sunTimes
+       url: forecastEndpoint
      })
-     .then(function(output) {
-       console.log(output["sun_phase"]["sunset"]);
-       var sunsetHour = parseInt(output["sun_phase"]["sunset"]["hour"]);
-       var sunsetMinute = parseInt(output["sun_phase"]["sunset"]["minute"]);
-       var sunriseHour = parseInt(output["sun_phase"]["sunrise"]["hour"]);
-       var sunriseMinute = parseInt(output["sun_phase"]["sunrise"]["minute"]);
-       var currentHour = parseInt(output["moon_phase"]["current_time"]["hour"]);
-       var currentMinute = parseInt(output["moon_phase"]["current_time"]["minute"]);
+     .then(function(forecastResponse) {
+       $.ajax({
+         type: 'GET',
+         dataType: 'jsonp',
+         url: sunTimes
+       })
+       .then(function(output) {
+         console.log(weatherResponse);
+         console.log(forecastResponse);
+         var sunsetHour = parseInt(output["sun_phase"]["sunset"]["hour"]);
+         var sunsetMinute = parseInt(output["sun_phase"]["sunset"]["minute"]);
+         var sunriseHour = parseInt(output["sun_phase"]["sunrise"]["hour"]);
+         var sunriseMinute = parseInt(output["sun_phase"]["sunrise"]["minute"]);
+         var currentHour = parseInt(output["moon_phase"]["current_time"]["hour"]);
+         var currentMinute = parseInt(output["moon_phase"]["current_time"]["minute"]);
 
-       console.log(currentHour);
-       if ((currentHour > sunsetHour || (currentHour == currentMinute && currentMinute > sunsetMinute)) ||  (currentHour < sunriseHour || (currentHour == sunriseHour && currentMinute < sunriseMinute))) {
-         night = "true";
-       } else {
-         night = "false";
-       }
+         console.log(currentHour);
+         if ((currentHour > sunsetHour || (currentHour == currentMinute && currentMinute > sunsetMinute)) ||  (currentHour < sunriseHour || (currentHour == sunriseHour && currentMinute < sunriseMinute))) {
+           night = "true";
+         } else {
+           night = "false";
+         }
 
-       var $current = response.current_observation;
+         var $current = weatherResponse.current_observation;
+        //  var icon = getIcon($current.icon, night);
+         currentWeather.load(getIcon($current.icon, night));
 
-       getIcon($current.icon, night);
 
-       var currentTemp = $current.temp_f;
-       temp.append(currentTemp + "°");
-     })
+         var currentTemp = $current.temp_f;
+         $temp.append(currentTemp + "°");
+
+         var $forecast = [];
+         for (var i=0; i<5; i++) {
+           var daily = forecastResponse.forecast.simpleforecast.forecastday[i];
+           console.log(day);
+           $('#day'+[i]+' > .icon').load(getIcon(daily.icon, "false"));
+           $('#day'+[i]+' > .highTemp').append(daily.high.fahrenheit+"°");
+           $('#day'+[i]+' > .lowTemp').append(daily.low.fahrenheit+"°");
+           $('#day'+[i]+' > .dayOfWeek').append((daily.date.weekday).substring(0, 3));
+         }
+       });
+     });
    });
-
-  //  $.ajax({
-  //    type: 'POST',
-  //    dataType: 'json',
-  //    url: '/weather'
-  //  })
-  //  .then(function(response) {
-  //    console.log(response);
-  //  })
  });
 })();
