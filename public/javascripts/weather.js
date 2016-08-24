@@ -114,12 +114,12 @@
          var $forecast = [];
          for (var i=0; i<5; i++) {
            var daily = forecastResponse.forecast.simpleforecast.forecastday[i];
-           console.log(day);
            $('#day'+[i]+' > .icon').load(getIcon(daily.icon, "false"));
            $('#day'+[i]+' > .highTemp').append(daily.high.fahrenheit+"°");
            $('#day'+[i]+' > .lowTemp').append(daily.low.fahrenheit+"°");
            $('#day'+[i]+' > .dayOfWeek').append((daily.date.weekday).substring(0, 3));
          }
+         console.log($forecast);
        });
      });
    });
