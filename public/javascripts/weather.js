@@ -99,7 +99,7 @@
        getIcon($current.icon, night);
 
        var currentTemp = $current.temp_f;
-       temp.append(currentTemp + "°F");
+       temp.append(currentTemp + "°");
      })
    });
 

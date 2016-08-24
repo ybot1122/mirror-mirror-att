@@ -1,17 +1,17 @@
 extends layout
 
 block content
-  section#topLeftCorner
-    h1 
-      #clock
-  section#topRightCorner.hidden
-    #forecast
-    h2
-      #temp
+  div.top
+    section#topLeftCorner
+      h1
+        #clock
+    section#topRightCorner.hidden
+      #forecast
+      h1
+        #temp
   section#leftMiddle
   section#rightMiddle
   section#leftBottomCorner
     #music
   section#bottom
     marquee(behavior="scroll" direction="left" scrolldelay="60")#marquee
-  

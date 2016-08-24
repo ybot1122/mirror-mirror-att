@@ -37,8 +37,8 @@ body {
 /* SVG GLOBAL */
 svg {
   display: inline-block;
-  width: 150px;
-  height: 150px;
+  width: 90px;
+  height: 90px;
   shape-rendering: geometricPrecision;
 }
 

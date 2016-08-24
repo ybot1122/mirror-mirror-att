@@ -3,7 +3,7 @@
     var clock = $('#clock');
 
     function updateClock() {
-      clock.text(moment().format('LT'));
+      clock.text(moment().format('HH:MM'));
     }
 
     updateClock();
