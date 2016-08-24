@@ -8,7 +8,7 @@
       console.log(word);
       console.log(typeof word);
       const query = {
-        query: 'query { searchTwitterTweets(q: "'+word+'", count: 5, result_type:popular) { id created_at text }  }   ',
+        query: 'query { searchTwitterTweets(q: "'+word+'", count: 10, result_type:popular) { id created_at text }  }   ',
         variables: ""
       };
 
@@ -38,9 +38,13 @@
       keyword: 'golf'
     }
 
-    socket.on('twitter', function(data) {
-      getTweets(data);
-      $("#bottom").removeClass("hidden");
-    });
+    getTweets(data);
+    $("#bottom").removeClass("hidden");
+
+    // DISABLED UNTIL WE RE-ENABLE NUANCE VOICE COMMANDS
+    // socket.on('twitter', function(data) {
+    //   getTweets(data);
+    //   $("#bottom").removeClass("hidden");
+    // });
   });
 })();
