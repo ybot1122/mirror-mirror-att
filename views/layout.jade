@@ -5,6 +5,7 @@ html
     link(rel='stylesheet', href="/stylesheets/normalize.css")
     link(rel='stylesheet', href="/stylesheets/weather.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/unsemantic-grid-responsive.css')
     link(href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic', rel='stylesheet', type='text/css')
     script(src='/scripts/moment/moment.js')
     script(src='/scripts/jquery/dist/jquery.min.js')
@@ -14,6 +15,8 @@ html
     script(src='/javascripts/weather.js')
     script(src='/javascripts/music.js')
     script(src='/javascripts/twitter.js')
+    script(src='/javascripts/calendar.js')
+    script(src='https://apis.google.com/js/client.js?onload=checkAuth')
     
   body
     block content

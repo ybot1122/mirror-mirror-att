@@ -14,8 +14,6 @@
 
 
    function getIcon(iconName, night) {
-
-     console.log(night);
      var weatherIconsDay = {
        "chanceflurries" : "cloudsnow.html",
        "chancerain" : "clouddrizzle.html",
@@ -87,16 +85,12 @@
          url: sunTimes
        })
        .then(function(output) {
-         console.log(weatherResponse);
-         console.log(forecastResponse);
          var sunsetHour = parseInt(output["sun_phase"]["sunset"]["hour"]);
          var sunsetMinute = parseInt(output["sun_phase"]["sunset"]["minute"]);
          var sunriseHour = parseInt(output["sun_phase"]["sunrise"]["hour"]);
          var sunriseMinute = parseInt(output["sun_phase"]["sunrise"]["minute"]);
          var currentHour = parseInt(output["moon_phase"]["current_time"]["hour"]);
          var currentMinute = parseInt(output["moon_phase"]["current_time"]["minute"]);
-
-         console.log(currentHour);
          if ((currentHour > sunsetHour || (currentHour == currentMinute && currentMinute > sunsetMinute)) ||  (currentHour < sunriseHour || (currentHour == sunriseHour && currentMinute < sunriseMinute))) {
            night = "true";
          } else {
@@ -114,7 +108,6 @@
          var $forecast = [];
          for (var i=0; i<5; i++) {
            var daily = forecastResponse.forecast.simpleforecast.forecastday[i];
-           console.log(day);
            $('#day'+[i]+' > .icon').load(getIcon(daily.icon, "false"));
            $('#day'+[i]+' > .highTemp').append(daily.high.fahrenheit+"°");
            $('#day'+[i]+' > .lowTemp').append(daily.low.fahrenheit+"°");

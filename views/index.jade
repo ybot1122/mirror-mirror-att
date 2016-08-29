@@ -1,11 +1,19 @@
 extends layout
 
 block content
-  div.top
-    section#topLeftCorner
-      h1
-        #clock
-    section#topRightCorner.hidden
+  div#container.grid-container.grid-100
+    section#topLeftCorner.grid-35.suffix-30
+      h3#today.grid-100.grey
+      h1#clock.grid-100
+      #authorize-div(style='display: none')
+        span Authorize access to Google Calendar API
+        // Button for the user to click to initiate auth sequence
+        button#authorize-button(onclick='handleAuthClick(event)')
+        | Authorize
+      #calendar.grid-100
+        #heading.grid-40.grid-parent
+        #date.grid-60.grey
+    section#topRightCorner.hidden.grid-35
       h1
         #temp
       #currentWeather
@@ -16,28 +24,29 @@ block content
             .lowTemp
             .highTemp
             .icon
-            .dayOfWeek
+            .dayOfWeek.grey
           .day#day1
             .lowTemp
             .highTemp
             .icon
-            .dayOfWeek
+            .dayOfWeek.grey
           .day#day2
             .lowTemp
             .highTemp
             .icon
-            .dayOfWeek
+            .dayOfWeek.grey
           .day#day3
             .lowTemp
             .highTemp
             .icon
-            .dayOfWeek
+            .dayOfWeek.grey
           .day#day4
             .lowTemp
             .highTemp
             .icon
-            .dayOfWeek
-  section#leftMiddle
+            .dayOfWeek.grey
+    
+
   section#rightMiddle
   section#leftBottomCorner
     #music
