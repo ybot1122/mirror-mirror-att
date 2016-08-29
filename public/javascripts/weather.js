@@ -14,8 +14,6 @@
 
 
    function getIcon(iconName, night) {
-
-     console.log(night);
      var weatherIconsDay = {
        "chanceflurries" : "cloudsnow.html",
        "chancerain" : "clouddrizzle.html",
@@ -87,16 +85,12 @@
          url: sunTimes
        })
        .then(function(output) {
-         console.log(weatherResponse);
-         console.log(forecastResponse);
          var sunsetHour = parseInt(output["sun_phase"]["sunset"]["hour"]);
          var sunsetMinute = parseInt(output["sun_phase"]["sunset"]["minute"]);
          var sunriseHour = parseInt(output["sun_phase"]["sunrise"]["hour"]);
          var sunriseMinute = parseInt(output["sun_phase"]["sunrise"]["minute"]);
          var currentHour = parseInt(output["moon_phase"]["current_time"]["hour"]);
          var currentMinute = parseInt(output["moon_phase"]["current_time"]["minute"]);
-
-         console.log(currentHour);
          if ((currentHour > sunsetHour || (currentHour == currentMinute && currentMinute > sunsetMinute)) ||  (currentHour < sunriseHour || (currentHour == sunriseHour && currentMinute < sunriseMinute))) {
            night = "true";
          } else {
@@ -119,7 +113,6 @@
            $('#day'+[i]+' > .lowTemp').append(daily.low.fahrenheit+"°");
            $('#day'+[i]+' > .dayOfWeek').append((daily.date.weekday).substring(0, 3));
          }
-         console.log($forecast);
        });
      });
    });

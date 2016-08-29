@@ -1,7 +1,7 @@
 body {
   background-color: black;
   font: 14px "Roboto", Helvetica, Arial, sans-serif;
-  padding: 2em 6em 2em 6em;
+  font-weight: lighter;
 }
 
 h1 {
@@ -9,6 +9,8 @@ h1 {
   font-family: "Roboto";
   font-weight: lighter;
   color: white;
+  margin-bottom: .2em;
+  line-height: .9em;
 }
 
 h2 {
@@ -29,18 +31,37 @@ a {
   color: #00B7FF;
 }
 
-.top {
-  width: 100%;
-  height: 100px;
+.grey {
+  color: #a8a8a8;
+}
+
+#container {
+  margin-top: 4em;
+}
+
+#clock {
+  margin-top: 0;
+  margin-left: 0;
+  margin-bottom: 40px;
+  padding-left: 0;
+}
+
+#today {
+  margin-bottom: 0;
 }
 
 #currentWeather {
   float: right;
-  margin-top: 1.5em;
+  margin-top: .7em;
 }
 
 #temp {
   float: right;
+}
+
+#heading {
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #forecast {
@@ -63,42 +84,15 @@ a {
   height: 30px;
 }
 
+.calicon {
+  width: 15px;
+}
+
 
 #today {
   float:right;
 }
 
-#topLeftCorner {
-  width: 300px;
-  float: left;
-  width: 30%;
-}
-
-#topRightCorner {
-  float: right;
-  height: 200px;
-  width: 300px;
-}
-
-#leftMiddle {
-  width: 300px;
-  position: fixed;
-  top: 100px;
-  right: 100px;
-}
-
-#rightMiddle {
-  width : 300px;
-  position: fixed;
-  right: 100px;
-}
-
-#leftBottomCorner {
-  width : 200px;
-  position: relative;;
-  left: 100px;
-  top: 220px;
-}
 
 #bottom {
   position: fixed;

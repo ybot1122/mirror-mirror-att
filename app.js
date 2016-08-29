@@ -96,7 +96,6 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-
 var routes = require('./routes/index');
 
 // view engine setup
